@@ -1,0 +1,45 @@
+<div class="banner">
+  <h1>Discover Latest Courses on Angular using scss</h1>
+</div>
+
+<div *ngIf="courses ; else loading">
+  <div *ngIf="courses.length > 0; else noCourses">
+    <!-- <div class="search-bar">
+      <input [(ngModel)]="searchTerm" placeholder="Search by title, author, or tags" />
+      <button (click)="onSearch()">Search</button>
+    </div> -->
+    <div class="course-list">
+      <div *ngFor="let course of courses.slice(startIndex, endIndex)" class="course-card" [routerLink]="[course.id]">
+        <div class="course-details">
+          <h2>{{ course.courseName }}</h2>
+          <ul>
+            <li>Author - {{ course.author }}</li>
+            <li>Actual Price - ₹{{ course.actualPrice }}</li>
+            <li>Discounted %age - {{ course.discountPercentage }}%</li>
+            <li>Tags - {{ course.tags.join(', ') }}</li>
+          </ul>
+        </div>
+        <div class="actions">
+          <button (click)="course.isAddedToWishlist ? showAlreadyAddToWishList() : onAddToWishList(course.id)">add to
+            wish
+            list</button>
+          <button (click)="course.isAddedToCart ? showAlreadyAddToCart() : onAddToCart(course.id)">add to
+            cart</button>
+        </div>
+      </div>
+    </div>
+    <!-- Pagination buttons -->
+    <div class="pagination-buttons">
+      <button (click)="onPrevPage()">Previous</button>
+      <span>{{ currentPage }} / {{ totalPages }}</span>
+      <button (click)="onNextPage()">Next</button>
+    </div>
+  </div>
+  <ng-template #noCourses>
+    <p>No courses found.</p>
+  </ng-template>
+</div>
+
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>
