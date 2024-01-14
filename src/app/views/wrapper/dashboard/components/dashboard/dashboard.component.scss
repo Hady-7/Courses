@@ -1,78 +1,162 @@
-.banner {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 50px;
-}
-/* course-list.component.scss */
-.course-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.course-card {
-  position: relative; /* Set position relative for absolute positioning of actions */
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px;
-  width: calc(25% - 20px); /* Adjust the width as needed */
-  box-sizing: border-box;
-  transition: background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: #f0f0f0; /* Change background color on hover */
+@import "src/constants.scss";
+$hero-background-image: url("/assets/dashboard/banner.jpg");
+.dashboard {
+  background-color: $back-ground;
+  padding-bottom: 50px;
+  position: relative;
+  .hero-section {
+    background-image: $hero-background-image;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 0;
+    .hero-content{
+      color: $primary;
+      font-size: 28px;
+    }
   }
 
-  .course-details {
-    h2 {
-      margin-bottom: 10px;
+  .controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .sorting-dropdown {
+    margin-top: 10px;
+    label {
+      margin-right: 10px;
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    select {
+      padding: 5px;
+    }
+  }
 
-      li {
-        margin-bottom: 5px;
+  .course-list {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .course-card {
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: calc(25% - 20px);
+    box-sizing: border-box;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+
+    &:hover {
+      background-color: $back-ground;
+    }
+
+    .course-details {
+      h2 {
+        margin-bottom: 10px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 5px;
+        }
+      }
+      span{
+        color: $primary;
+      }
+    }
+
+    .actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      display: none;
+      margin-top: 10px;
+
+      button {
+        margin: 5px 0;
+        background-color: $primary;
+        border: none;
+        color: #fff;
+        padding: 8px 0;
+        cursor: pointer;
+      }
+    }
+
+    &:hover .actions {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .pagination-buttons {
+    margin-top: 20px;
+    position: relative;
+    button {
+      margin:0 10px;
+      border-radius: 5px;
+      border: none;
+      padding: 5px;
+      background-color: $primary;
+      color: #fff;
+      cursor: pointer;
+      &:hover{
+        transform: scale(1.1);
+      }
+    }
+    span{
+      font-size: 18px;
+    }
+  }
+
+  .search-bar {
+    margin: 0;
+    height: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 50%;
+    input {
+      margin-right: 10px;
+      border: none;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      padding: 10px;
+      font-size: 18px;
+      &:focus {
+        outline: none;
+        border: none;
+        box-shadow: none;
       }
     }
   }
-
-  .actions {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: none; /* Initially hidden */
-    margin-top: 10px;
-
-    button {
-      margin-right: 5px;
-    }
-  }
-
-  &:hover .actions {
-    display: flex; /* Display actions on hover */
-  }
 }
-.pagination-buttons {
-  margin-top: 20px;
-
-  button {
-    margin-right: 10px;
-  }
+.custom-snackbar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $primary;
+  color: #fff;
 }
-// search bar
-
-.search-bar {
-  margin-bottom: 20px;
-
-  input {
-    padding: 5px;
-    margin-right: 10px;
-  }
-
-  button {
-    padding: 5px;
-  }
+.noCourse-list{
+  margin-left: 20px;
 }

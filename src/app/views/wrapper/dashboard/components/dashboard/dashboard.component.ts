@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable, zip } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import { MatSnackBar,MatSnackBarConfig ,MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import * as fromActions from '../../store/actions';
 import * as fromStore from '../../store/';
 import * as fromModels from '../../models/';
-import { map } from 'rxjs/operators';
+import * as fromWishListActions from '../../../wish-list/store/actions';
+import * as fromCartActions from '../../../cart/store/actions';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -18,18 +21,25 @@ export class DashboardComponent implements OnInit {
   loading$: Observable<boolean>;
   error$: Observable<any>;
   courses: fromModels.ICourse[];
-
+  sortedCourses$: Observable<fromModels.ICourse[]>;
   // Pagination
   currentPage = 1;
   coursesPerPage = 4;
   totalPages: number;
 
   // Search
-  searchTerm = '';
-
-  constructor(private store: Store, private snackBar: MatSnackBar) {}
+  searchForm: FormGroup;
+  // sort
+  selectedSortOption: string = 'default';
+  constructor(private store: Store, private snackBar: MatSnackBar,private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.searchForm = this.fb.group({
+      searchTerm: [''], // Initialize with an empty string
+    });
+    this.searchForm.get('searchTerm').valueChanges.subscribe((searchTerm) => {
+      this.store.dispatch(fromActions.searchCourses({ searchTerm }));
+    });
     this.store.dispatch(fromActions.loadCourses());
     this.courses$ = this.store.pipe(select(fromStore.getCoursesSelectAll));
     this.store
@@ -42,27 +52,41 @@ export class DashboardComponent implements OnInit {
       });
     this.loading$ = this.store.pipe(select(fromStore.getCoursesLoading));
     this.error$ = this.store.pipe(select(fromStore.getCoursesError));
+    this.sortedCourses$ = this.store.pipe(select(fromStore.getSortedCourses));
   }
-  onAddToWishList(courseId: number) {
+  onAddToWishList(courseId: number, course: fromModels.ICourse) {
     this.store.dispatch(
       fromActions.addCourseToWishList({ payload: { courseId: courseId } })
     );
+    this.store.dispatch(
+      fromWishListActions.addCourseToWishList({ payload: { course: course } })
+    );
   }
-  onAddToCart(courseId: number) {
+  onAddToCart(courseId: number, course: fromModels.ICourse) {
     this.store.dispatch(
       fromActions.addCourseToCart({ payload: { courseId: courseId } })
     );
+    this.store.dispatch(
+      fromCartActions.addCourseToCart({ payload: { course: course } })
+    );
   }
   showAlreadyAddToWishList() {
-    this.snackBar.open('Courses already added in the wishlist', '', {
-      duration: 8000,
-    });
+    const config: MatSnackBarConfig = {
+      duration: 5000,
+      verticalPosition: 'top' as MatSnackBarVerticalPosition,
+      panelClass: ['custom-snackbar']
+    };
+    this.snackBar.open('Courses already added in the wishlist', '', config);
   }
   showAlreadyAddToCart() {
-    this.snackBar.open('Courses already added in the cart', '', {
-      duration: 8000,
-    });
+    const config: MatSnackBarConfig = {
+      duration: 5000,
+      verticalPosition: 'top' as MatSnackBarVerticalPosition,
+      panelClass: ['custom-snackbar']
+    };
+    this.snackBar.open('Courses already added in the cart', '', config);
   }
+
 
   // Pagination methods
   onNextPage() {
@@ -85,21 +109,9 @@ export class DashboardComponent implements OnInit {
     return this.startIndex + this.coursesPerPage;
   }
 
-    // Search method
-    // onSearch() {
-    //   this.currentPage = 1;
-    //   this.filterCourses();
-    // }
+  // sort
+   sortCourses(sortBy: string) {
+    this.store.dispatch(fromActions.sortCourses({ sortBy }));
+  }
 
-    // private filterCourses() {
-    //   this.filteredCourses$ = this.courses$.pipe(
-    //     map(courses =>
-    //       courses.filter(course =>
-    //         course.courseName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-    //         course.author.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-    //         course.tags.some(tag => tag.toLowerCase().includes(this.searchTerm.toLowerCase()))
-    //       )
-    //     )
-    //   );
-    // }
 }

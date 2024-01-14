@@ -1,7 +1,18 @@
 <nav class="navbar">
-  <a href="#home">Company Icon</a>
-  <a href="#courses">Courses</a>
-  <a href="#wishlist">My Wish List</a>
-  <a href="#cart">Cart Details</a>
-  <a href="#profile">My Profile Page</a>
+  <div class="navbar-left">
+    <a routerLink='/'>
+      <img [src]="'assets/dashboard/logo.gif'" alt="logo" >
+    </a>
+  </div>
+  <div class="navbar-middle">
+    <a routerLink='/'>Courses</a>
+    <a routerLink="/wish-list">My Wish List</a>
+  </div>
+  <div class="navbar-right">
+    <div class="cart-container" routerLink="/cart">
+      <a>
+        <img [src]="'assets/dashboard/cart.png'" alt="cart" style="max-width: 40px;">
+      </a>
+    </div>
+  </div>
 </nav>

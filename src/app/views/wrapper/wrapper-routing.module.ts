@@ -12,9 +12,22 @@ const routes: Routes = [
           import('./dashboard/dashboard.module').then(
             (module) => module.DashboardModule
           ),
-
       },
-
+      {
+        path: 'cart',
+        loadChildren: () =>
+          import('./cart/cart.module').then((module) => module.CartModule),
+      },
+      {
+        path: 'wish-list',
+        loadChildren: () =>
+          import('./wish-list/wish-list.module').then((module) => module.WishListModule),
+      },
+      {
+        path: 'course/:id',
+        loadChildren: () =>
+          import('./course-details/course-details.module').then((module) => module.courseDetailsModule),
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

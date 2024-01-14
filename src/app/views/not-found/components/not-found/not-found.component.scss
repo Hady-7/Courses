@@ -1,0 +1,17 @@
+@import "src/constants.scss";
+
+.main-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  p{
+    font-size: 22px;
+  }
+  button{
+    background-color: $primary;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+  }
+}

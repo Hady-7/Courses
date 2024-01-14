@@ -1,0 +1,52 @@
+<div *ngIf="course$ | async as course; else loading">
+
+  <div class="course-details">
+    <!-- Page Banner -->
+    <div class="banner">
+      <h1>Discover Latest Courses on React</h1>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a routerLink="/">All Courses</a> / {{course[0]?.courseName}}
+    </div>
+
+    <!-- Course Content -->
+    <div class="course-content">
+
+      <!-- Video Card -->
+      <div class="video-card">
+        <video controls>
+          <source [src]="'assets/video/demo.mp4'" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+      </div>
+      <div>
+        <div class="price-details">
+          <p>Price: <span class="primary">{{course[0]?.actualPrice}}</span> </p>
+          <p>Author: <span class="primary">{{ course[0]?.author }}</span></p>
+          <p>Actual Price: <span class="primary">{{ course[0]?.actualPrice }}</span></p>
+          <p>Tags: <span class="primary">{{ course[0]?.tags.join(', ') }}</span></p>
+        </div>
+        <div class="actions">
+          <button
+            (click)="course.isAddedToWishlist ? showAlreadyAddToWishList() : onAddToWishList(course[0]?.id,course[0])">Add to
+            Wish
+            List</button>
+          <button (click)="course.isAddedToCart ? showAlreadyAddToCart() : onAddToCart(course[0]?.id,course[0])">Add to
+            Cart</button>
+        </div>
+
+        <!-- Time Left Feature -->
+        <!-- <div class="time-left">
+          <p> timeLeft hours left for the sale to end!</p>
+        </div> -->
+      </div>
+
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>

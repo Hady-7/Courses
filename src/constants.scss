@@ -4,19 +4,15 @@ $rtl: '.rtl :host &';
 
 //will change
 
-$primary: #f43e18; // primary
-$linear-gradient: linear-gradient(225.98deg, #fa7e1f 3.1%, #ef0012 70.07%);
-$secondary: #fa7e1f;
-$accent: #edceb7;
-$white: #ffffff;
-$background: #f4f6fa;
-$dark: #63636a;
-$warning: #ffcc00;
+$primary: #0056d2;
+$secondary: #6c757d;
+$back-ground: #f8f9fa;
 $error: #ff0000;
 $success: #42a850;
 $black: #000000;
 $disabled: #cccccc;
-
+$secondary: #fa7e1f;
+$accent: #edceb7;
 // breakpoint media query
 $desktop-view: 'screen and (min-width: 960px)';
 $mobile: 'screen and (max-width: 959px)';

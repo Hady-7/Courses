@@ -4,8 +4,10 @@ import * as fromActions from '../actions';
 import * as fromModels from '../../models';
 
 export interface ICoursesState extends EntityState<fromModels.ICourse> {
-  error: undefined;
+  error: Error;
   loading: boolean;
+  sortBy: string;
+
 }
 
 export const coursesAdapter = createEntityAdapter<fromModels.ICourse>();
@@ -13,6 +15,7 @@ export const coursesAdapter = createEntityAdapter<fromModels.ICourse>();
 export const initialState: ICoursesState = coursesAdapter.getInitialState({
   loading: false,
   error: undefined,
+  sortBy: 'default',
 });
 
 export const courseReducer = createReducer(
@@ -60,6 +63,25 @@ export const courseReducer = createReducer(
     { ...state }
   )
   ),
+  on(fromActions.searchCourses, (state) => ({
+    ...state,
+    loading: true,
+    error: undefined,
+  })),
+  on(fromActions.searchCoursesSuccess, (state, { payload }) =>
+    coursesAdapter.setAll(payload, {
+      ...state,
+      loading: false,
+    })
+  ),
+  on(fromActions.searchCoursesFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload,
+  })),
+  on(fromActions.sortCourses, (state, { sortBy }) => {
+    return { ...state, sortBy };
+  })
 );
 export function reducer(
   state: ICoursesState | undefined,

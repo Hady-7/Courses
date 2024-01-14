@@ -1,0 +1,22 @@
+<h2>Cart</h2>
+<div class="cart" *ngIf="courses$ | async as courses ">
+  <div *ngIf="courses.length > 0; else noCourse">
+    <div class="course-card" *ngFor="let course of courses">
+      <div class="course-details">
+        <h2>{{ course.courseName }}</h2>
+        <ul>
+          <li>Author - <span>{{ course.author }}</span></li>
+          <li>Actual Price - <span>{{ course.actualPrice }}</span></li>
+          <li>Discounted %age - <span>{{ course.discountPercentage }}</span></li>
+          <li>Tags - <span>{{ course.tags.join(', ') }}</span></li>
+        </ul>
+      </div>
+      <button (click)="onRemoveFromCart(course.id)">remove</button>
+    </div>
+  </div>
+  <ng-template #noCourse>
+    <div class="noCourse-list">
+      <p>No courses found.</p>
+    </div>
+  </ng-template>
+</div>

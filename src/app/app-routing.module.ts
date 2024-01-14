@@ -16,14 +16,6 @@ const routes: Routes = [
         (module) => module.NotFoundModule
       ),
   },
-  // {
-  //   path: 'dashboard',
-  //   loadChildren: () =>
-  //     import('./views/dashboard/dashboard.module').then(
-  //       (module) => module.DashboardModule
-  //     ),
-  // },
-  // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 
 ];
 

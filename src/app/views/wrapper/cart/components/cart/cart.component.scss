@@ -1,0 +1,64 @@
+@import "src/constants.scss";
+h2 {
+  margin-left: 20px;
+  color: $primary;
+}
+.cart {
+  .course-card {
+    position: relative;
+    border: 1px solid $black;
+    padding: 10px;
+    margin: 10px;
+    width: calc(50% - 20px);
+    box-sizing: border-box;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+
+    &:hover {
+      background-color: $back-ground;
+    }
+
+    .course-details {
+      h2 {
+        margin-bottom: 10px;
+        margin-left: 0;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 5px;
+        }
+      }
+      span {
+        color: $primary;
+      }
+    }
+
+    button {
+      margin: 5px 0;
+      background-color: $primary;
+      border: none;
+      color: #fff;
+      padding: 8px 15px;
+      cursor: pointer;
+      border-radius: 10px;
+      font-size: 18px;
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+
+    &:hover .actions {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+.noCourse-list{
+  margin-left: 20px;
+}

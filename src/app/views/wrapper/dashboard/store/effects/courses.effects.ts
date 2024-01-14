@@ -25,7 +25,32 @@ export class CoursesEffects {
         )
       )
     )
+
   );
-
-
+  searchCourses$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(fromActions.searchCourses),
+    switchMap(({ searchTerm }) =>
+      this.courseService.searchCourses(searchTerm).pipe(
+        map((data) => fromActions.searchCoursesSuccess({ payload: data })),
+        catchError((error) =>
+          of(fromActions.searchCoursesFailure({ payload: error }))
+        )
+      )
+    )
+  )
+);
+ sortCourses$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromActions.sortCourses),
+      switchMap(({ sortBy }) =>
+        this.courseService.sortCourses(sortBy).pipe(
+          map((data) => fromActions.loadCoursesSuccess({ payload: data })),
+          catchError((error) =>
+            of(fromActions.loadCoursesFailure({ payload: error }))
+          )
+        )
+      )
+    )
+  );
 }
